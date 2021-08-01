@@ -2,7 +2,5 @@
 
 # Script to run at provisioning time
 
-export DEBIAN_FRONTEND='noninteractive'
-
 # Save the original hosts file for future use
 cp --force /etc/hosts /srv/hosts-local
