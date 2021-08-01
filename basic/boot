@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Script to run at every bootup
+
+truncate -s 0 /etc/hosts
+cat /srv/hosts-local >> /etc/hosts
+cat /vagrant/hosts-canonical >> /etc/hosts
+apt-get update

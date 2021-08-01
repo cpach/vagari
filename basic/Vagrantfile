@@ -1,0 +1,44 @@
+Vagrant.configure('2') do |config|
+  config.vm.box = 'debian/buster64'
+  config.vm.base_mac = nil
+  config.vm.post_up_message = nil
+  config.vm.provision :shell, path: './bootstrap'
+  config.vm.provision :shell, path: './boot', run: 'always'
+
+  config.vm.define 'bilbo' do |subconfig|
+    subconfig.vm.network 'private_network', ip: '172.16.0.22'
+    subconfig.vm.hostname = 'bilbo.contoso.com'
+    subconfig.vm.provider 'virtualbox' do |v|
+      v.memory = 512
+      v.cpus = 2
+    end
+    subconfig.vm.provision :shell, path: './enable-swap'
+  end
+
+  config.vm.define 'gimli' do |subconfig|
+    subconfig.vm.network 'private_network', ip: '172.16.0.20'
+    subconfig.vm.hostname = 'gimli.contoso.com'
+    subconfig.vm.provider 'virtualbox' do |v|
+      v.memory = 2048
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define 'balin' do |subconfig|
+    subconfig.vm.network 'private_network', ip: '172.16.0.21'
+    subconfig.vm.hostname = 'balin.contoso.com'
+    subconfig.vm.provider 'virtualbox' do |v|
+      v.memory = 2048
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define 'galadriel' do |subconfig|
+    subconfig.vm.network 'private_network', ip: '172.16.0.23'
+    subconfig.vm.hostname = 'galadriel.contoso.com'
+    subconfig.vm.provider 'virtualbox' do |v|
+      v.memory = 2048
+      v.cpus = 2
+    end
+  end
+end

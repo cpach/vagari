@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo 'vm.swappiness=1' > /etc/sysctl.d/swappiness.conf
+sysctl -p /etc/sysctl.d/swappiness.conf
+dd if=/dev/zero of=/swapfile bs=1M count=4096
+chown root:root /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+echo '/swapfile none swap defaults 0 0' >> /etc/fstab
+swapon -a
